@@ -31,9 +31,17 @@ def read_bank_statements() -> pd.DataFrame:
 def read_credit_statements() -> pd.DataFrame:
     """Reads the credit card statements from the credit card statements directory
     returns a dataframe"""
+    dfs = []
+    for item in os.listdir(CREDIT_CARDS_DIR):
+        df = pd.read_excel(f"{CREDIT_CARDS_DIR}/{item}", skiprows=range(8))
+        drop_list = [column for column in df.columns if df[column].count() == 0]
+        df.drop(columns=drop_list, inplace=True)
+        dfs.append(df)
+    return pd.concat(dfs)
+        
 
-df = read_bank_statements()
+df = read_credit_statements()
 
 # %%
-df.description.value_counts()
+df
 # %%
