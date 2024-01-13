@@ -32,6 +32,8 @@ def read_credit_statements() -> pd.DataFrame:
     """Reads the credit card statements from the credit card statements directory
     returns a dataframe"""
 
-print(read_bank_statements())
+df = read_bank_statements()
 
+# %%
+df.description.value_counts()
 # %%
